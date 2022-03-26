@@ -1,0 +1,16 @@
+{
+    "name": "OmniGrub",
+    "version": "0.1",
+    "description": "Takes all displayed search results and does an API call to multiple platforms to add reviews",
+    "manifest_version": 3,
+    "icons": {
+      "128": "icon.png"
+    },
+    "content_scripts": [
+      {
+        "css": ["style.css"],
+        "js": ["action.js"],
+        "matches": ["https://*.doordash.com/store*"]
+      }
+    ]
+  }
