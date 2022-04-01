@@ -19,7 +19,15 @@ window.addEventListener("load", (event) => {
   var ratingText = rating[0].innerHTML;
 
   //Search param to be passed to background script event listener
-  var searchParams = "?location=" + addressText + "&term=" + placeText;
+  //var searchParams = "?location=" + addressText + "&term=" + placeText;
+
+  //Search params to be passed to background script as an object that can be referenced by multiple APIs
+  const searchParams = {
+    location: addressText,
+    store: placeText,
+  };
+
+  const stringParams = JSON.stringify(searchParams);
 
   console.log("Place name: ", placeText);
   console.log("User location ", addressText);
