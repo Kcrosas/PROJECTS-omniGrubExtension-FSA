@@ -18,9 +18,6 @@ window.addEventListener("load", (event) => {
   var rating = document.querySelectorAll("[data-testid=storeRatingInfo]");
   var ratingText = rating[0].innerHTML;
 
-  //Search param to be passed to background script event listener
-  //var searchParams = "?location=" + addressText + "&term=" + placeText;
-
   //Search params to be passed to background script as an object that can be referenced by multiple APIs
   const searchParams = {
     location: addressText,
@@ -36,7 +33,7 @@ window.addEventListener("load", (event) => {
 
   //Sends out a message to the background script's message listener with the search params
   chrome.runtime.sendMessage(searchParams, (response) => {
-    const results = JSON.parse(response.results);
+    const results = response.yelpResult;
     const singleSpot = results.businesses[0];
     console.log("Result: ", singleSpot);
     place.innerHTML =
