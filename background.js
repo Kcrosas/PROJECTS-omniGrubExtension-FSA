@@ -18,8 +18,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   //Yelp fetch block
   fetch(urlYelp, {
     headers: {
-      Authorization:
-        "Bearer 7Sx1VUh0USPACiiBiWX7XGU9IT6E0TPgGnxNHHQIzSiUUl1Kfgdp2HlEFJJ-i0rVrt00nRi3MItgQSwvqLebEa7sRiUFF1Q6_gOXiyEqYzSkGldDEAwbtfD8NQ4pYnYx",
+      Authorization: "Bearer 999",
     },
   })
     .then((res) => res.json())
@@ -31,7 +30,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         `${urlFour}near=${zipFour}&query=${msg.store}$categories=${fourCategories}&fields=${fourFields}`,
         {
           headers: {
-            Authorization: `fsq3H3P89by6yV/anQjoZ//7MnOwHmyKwcJMn3aH+eEpV4w=`,
+            Authorization: `999`,
           },
         }
       )
