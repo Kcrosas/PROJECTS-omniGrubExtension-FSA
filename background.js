@@ -2,7 +2,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   //Uncomment if you've made adjustments to the search params from the frontend
   //console.log("Search params passed from the front: ", msg);
 
-  var urlYelp = `https://api.yelp.com/v3/businesses/search?location=${msg.location}&term=${msg.store}`;
+  var urlYelp = `https://api.yelp.com/v3/businesses/search?location=${msg.location},NY&term=${msg.store}`;
 
   var urlFour = `https://api.foursquare.com/v3/places/search?`;
 
@@ -18,7 +18,8 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   //Yelp fetch block
   fetch(urlYelp, {
     headers: {
-      Authorization: "Bearer 999",
+      Authorization:
+        "Bearer 7Sx1VUh0USPACiiBiWX7XGU9IT6E0TPgGnxNHHQIzSiUUl1Kfgdp2HlEFJJ-i0rVrt00nRi3MItgQSwvqLebEa7sRiUFF1Q6_gOXiyEqYzSkGldDEAwbtfD8NQ4pYnYx",
     },
   })
     .then((res) => res.json())
@@ -30,7 +31,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         `${urlFour}near=${zipFour}&query=${msg.store}$categories=${fourCategories}&fields=${fourFields}`,
         {
           headers: {
-            Authorization: `999`,
+            Authorization: `fsq3H3P89by6yV/anQjoZ//7MnOwHmyKwcJMn3aH+eEpV4w=`,
           },
         }
       )

@@ -16,6 +16,7 @@ window.addEventListener("load", (event) => {
 
   //Grabs current rating of restaurant
   var rating = document.querySelectorAll("[data-testid=storeRatingInfo]");
+  console.log(document.querySelectorAll(".gVcdmK"), "rating array");
   var ratingText = rating[0].innerHTML;
 
   //Search params to be passed to background script as an object that can be referenced by multiple APIs
@@ -38,11 +39,12 @@ window.addEventListener("load", (event) => {
     console.log(response, "results");
     place.innerHTML =
       place.innerHTML +
-      " YELP RATING IS:" +
+      "\nYELP score: " +
       singleSpot.rating +
       "(" +
       singleSpot.review_count +
       ")";
+    //rating[0].innerHTML = `DD: ${ratingText} | Y: ${singleSpot.rating} (${singleSpot.review_count} ratings)`;
     //From tutorial, example use of modifying existing HTML with response data
     // document.querySelector('h1').innerHTML = response.word;
     // document.querySelector('p').innerHTML = response.desc;
