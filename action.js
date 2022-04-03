@@ -35,7 +35,7 @@ window.addEventListener("load", (event) => {
   chrome.runtime.sendMessage(searchParams, (response) => {
     const results = response.yelpResult;
     const singleSpot = results.businesses[0];
-    console.log("Result: ", singleSpot);
+    console.log(response, "results");
     place.innerHTML =
       place.innerHTML +
       " YELP RATING IS:" +
