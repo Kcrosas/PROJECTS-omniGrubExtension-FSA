@@ -1,11 +1,8 @@
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
-  //Uncomment if you've made adjustments to the search params from the frontend
-  //console.log("Search params passed from the front: ", msg);
-
-  var urlYelp = `https://api.yelp.com/v3/businesses/search?location=${msg.location}&term=${msg.store}`;
-
+  var urlYelp = `https://api.yelp.com/v3/businesses/search?`;
   var urlFour = `https://api.foursquare.com/v3/places/search?`;
 
+  //For use with FourSquare's API call
   let fourCategories = "";
   for (let i = 13000; i < 13387; i++) {
     fourCategories = fourCategories + `,${i}`;
@@ -15,32 +12,49 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   //Initiate an empty results object
   let results = {};
 
-  //Yelp fetch block
-  fetch(urlYelp, {
-    headers: {
-      Authorization:
-        "Bearer 999",
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      results.yelpResult = data;
-      let zipFour = results.yelpResult.businesses[0].location.zip_code;
 
-      fetch(
+  ////////////////////////////////ASYNC yelp call function
+  const yelpCall = async () => {
+    try {
+      const response = await fetch(
+        `${urlYelp}location=${msg.location},NY&term=${msg.store}`,
+        {
+          headers: {
+            Authorization: "Bearer 999",
+          },
+        }
+      );
+      results.yelpResult = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  ////////////////////////////////ASYNC four call function
+  const fourCall = async () => {
+    try {
+      let zipFour = results.yelpResult.businesses[0].location.zip_code;
+      const response = await fetch(
         `${urlFour}near=${zipFour}&query=${msg.store}$categories=${fourCategories}&fields=${fourFields}`,
         {
           headers: {
             Authorization: `999`,
           },
         }
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          results.fourResult = data.results;
-          response(results);
-        });
-    });
+      );
+      results.fourResult = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //API calls made in order
+  (async () => {
+    await yelpCall();
+    await fourCall();
+    response(results);
+  })();
 
   return true;
 });

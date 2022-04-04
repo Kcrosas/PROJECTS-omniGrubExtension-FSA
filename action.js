@@ -18,6 +18,7 @@ window.addEventListener("load", (event) => {
 
   //Grabs current rating of restaurant
   var rating = document.querySelectorAll("[data-testid=storeRatingInfo]");
+  console.log(document.querySelectorAll(".gVcdmK"), "rating array");
   var ratingText = rating[0].innerHTML;
 
   //Search params to be passed to background script as an object that can be referenced by multiple APIs
@@ -39,6 +40,7 @@ window.addEventListener("load", (event) => {
   chrome.runtime.sendMessage(searchParams, (response) => {
     const results = response.yelpResult;
     const singleSpot = results.businesses[0];
+
     const fourResults = response.fourResult;
     console.log("Result: ", singleSpot);
     console.log("THIS IS FOURSQUARE", fourResults);
@@ -91,6 +93,7 @@ window.addEventListener("load", (event) => {
     ratingDiv.appendChild(ratingImg);
     yelpDiv.appendChild(yelpImg);
     a.appendChild(externalImg);
+
 
   });
 });
