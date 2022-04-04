@@ -7,6 +7,8 @@ window.addEventListener("load", (event) => {
   var place = document.querySelectorAll("h1")[0];
   var placeText = place.innerHTML;
 
+  // //creating the div thats going to be inserted
+
   //Example use of modifying an existing element
   //place.innerHTML = place.innerHTML + " DoorDash, hire us!";
 
@@ -32,21 +34,66 @@ window.addEventListener("load", (event) => {
   console.log("Current rating ", ratingText);
   console.log("Compiled Params: ", searchParams);
 
+  let font = new FontFace("TTnorms", "url('TTnorms.otf')");
+  document.fonts.add(font);
   //Sends out a message to the background script's message listener with the search params
   chrome.runtime.sendMessage(searchParams, (response) => {
     const results = response.yelpResult;
     const singleSpot = results.businesses[0];
-    console.log(response, "results");
-    place.innerHTML =
-      place.innerHTML +
-      "\nYELP score: " +
-      singleSpot.rating +
-      "(" +
-      singleSpot.review_count +
-      ")";
-    //rating[0].innerHTML = `DD: ${ratingText} | Y: ${singleSpot.rating} (${singleSpot.review_count} ratings)`;
-    //From tutorial, example use of modifying existing HTML with response data
-    // document.querySelector('h1').innerHTML = response.word;
-    // document.querySelector('p').innerHTML = response.desc;
+
+    const fourResults = response.fourResult;
+    console.log("Result: ", singleSpot);
+    console.log("THIS IS FOURSQUARE", fourResults);
+
+    //Element and variable declaration
+    let divContainer = document.createElement("div");
+    let yelpDiv = document.createElement("div");
+    let ratingContainerDiv = document.createElement("div");
+    let ratingDiv = document.createElement("div");
+    let reviewDiv = document.createElement("div");
+    let externalDiv = document.createElement("div");
+    let a = document.createElement("a");
+    let header = document.querySelector("header");
+    let roundedRating = Math.ceil(singleSpot.rating * 2) / 2; // 2.5
+
+
+    //class list assignment
+    divContainer.classList.add("container");
+    ratingContainerDiv.classList.add("ratingContainer");
+    reviewDiv.classList.add("review");
+
+
+    //HTML construction
+    header.appendChild(divContainer);
+    divContainer.appendChild(yelpDiv);
+    divContainer.appendChild(ratingContainerDiv);
+    divContainer.appendChild(externalDiv);
+    ratingContainerDiv.appendChild(ratingDiv);
+    ratingContainerDiv.appendChild(reviewDiv);
+    externalDiv.appendChild(a);
+
+    //Image construction
+    const ratingImg = document.createElement("img");
+    ratingImg.classList.add("ratingImage");
+    ratingImg.src = chrome.runtime.getURL(`./small_${roundedRating}.png`);
+
+    const yelpImg = document.createElement("img");
+    yelpImg.classList.add("yelpImage");
+    yelpImg.src = chrome.runtime.getURL(`./yelp-logo.png`);
+
+    const externalImg = document.createElement("img");
+    externalImg.classList.add("externalImage");
+    externalImg.src = chrome.runtime.getURL("./external.png");
+
+    //Variable assignment
+    reviewDiv.innerHTML = `(${singleSpot.review_count} reviews)`;
+    a.href = `${singleSpot.url}`
+
+    //final HTML construction
+    ratingDiv.appendChild(ratingImg);
+    yelpDiv.appendChild(yelpImg);
+    a.appendChild(externalImg);
+
+
   });
 });

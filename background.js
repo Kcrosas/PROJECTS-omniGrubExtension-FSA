@@ -12,6 +12,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   //Initiate an empty results object
   let results = {};
 
+
   ////////////////////////////////ASYNC yelp call function
   const yelpCall = async () => {
     try {
@@ -28,6 +29,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
       console.log(error);
     }
   };
+
 
   ////////////////////////////////ASYNC four call function
   const fourCall = async () => {
