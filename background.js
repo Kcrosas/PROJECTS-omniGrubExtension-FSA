@@ -49,10 +49,23 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     }
   };
 
+  ////////////////////////////ASYNC google call function
+  const googleCall = async () => {
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+${msg.location}+${msg.store}&key=999`
+      );
+      results.googleResult = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   //API calls made in order
   (async () => {
     await yelpCall();
     await fourCall();
+    await googleCall();
     response(results);
   })();
 
