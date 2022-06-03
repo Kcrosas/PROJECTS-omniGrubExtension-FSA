@@ -13,7 +13,7 @@ window.addEventListener("load", (event) => {
   //place.innerHTML = place.innerHTML + " DoorDash, hire us!";
 
   //Grabs address of user from top nav bar
-  var address = document.querySelectorAll(".hbbgps");
+  var address = document.querySelectorAll(".gUHrYg");
   var addressText = address[1].innerHTML;
 
   //Grabs current rating of restaurant
@@ -30,22 +30,53 @@ window.addEventListener("load", (event) => {
 
   console.log("Compiled Params: ", searchParams);
 
-  let font = new FontFace("TTnorms", "url('TTnorms.otf')");
-  document.fonts.add(font);
+
   //Sends out a message to the background script's message listener with the search params
   chrome.runtime.sendMessage(searchParams, (response) => {
     const results = response.yelpResult;
-    const googleResults = response.googleResult;
+    // const googleResults = response.googleResult;
     const fourResults = response.fourResult;
     const yelp = results.businesses[0];
-    const google = googleResults.results[0];
+    // const google = googleResults.results[0];
     const four = fourResults.results[0];
 
     console.log("Result: ", yelp);
     console.log("THIS IS FOURSQUARE", fourResults);
-    console.log("Result: GOOGLE ", googleResults);
+    // console.log("Result: GOOGLE ", googleResults);
 
-    //Element and variable declaration
+    let header = document.querySelector("header");
+
+    //Checks if either return undefined or don't have a rating, if that happens error message
+    //else the chrome extension runs
+    if(!yelp || !four || !four.rating || !yelp.rating){
+
+      let errorDiv = document.createElement("div")
+    
+      //H1 for the Whoops
+      let errorH1 = document.createElement("h1")
+      let topDiv = document.createElement("div")
+      //H1 stacked on top of h4
+      let errorMessage = document.createElement("h4")
+      let bottomDiv = document.createElement("div")
+      //error classlist assignment
+      errorDiv.classList.add("errorContainer")
+      topDiv.classList.add("errorTop")
+      bottomDiv.classList.add("errorBottom")
+  
+      //html construction
+      header.appendChild(errorDiv)
+      errorDiv.appendChild(topDiv)
+      errorDiv.appendChild(bottomDiv)
+      topDiv.appendChild(errorH1)
+      bottomDiv.appendChild(errorMessage)
+  
+      //text insertion
+      errorH1.innerHTML="Whoops!"
+      errorMessage.innerHTML="OmniGrub Restaurant Match Not Found."
+
+    } else{
+
+      //Element and variable declaration
     let divContainer = document.createElement("div");
     let yelpDiv = document.createElement("div");
     let ratingContainerDiv = document.createElement("div");
@@ -53,16 +84,15 @@ window.addEventListener("load", (event) => {
     let reviewDiv = document.createElement("div");
     let externalDiv = document.createElement("div");
     let a = document.createElement("a");
-    let header = document.querySelector("header");
     let roundedRating = Math.ceil(yelp.rating * 2) / 2; // 2.5
 
     //google Variables
-    let googleDiv = document.createElement("div");
-    let ratingContainerDivG = document.createElement("div");
-    let ratingDivG = document.createElement("div");
-    let reviewDivG = document.createElement("div");
-    let externalDivG = document.createElement("div");
-    let roundedRatingG = Math.ceil(google.rating * 2) / 2; // 2.5
+    // let googleDiv = document.createElement("div");
+    // let ratingContainerDivG = document.createElement("div");
+    // let ratingDivG = document.createElement("div");
+    // let reviewDivG = document.createElement("div");
+    // let externalDivG = document.createElement("div");
+    // let roundedRatingG = Math.ceil(google.rating * 2) / 2; // 2.5
 
     //foursquare varibles
     let fourDiv = document.createElement("div");
@@ -77,10 +107,10 @@ window.addEventListener("load", (event) => {
     divContainer.classList.add("container");
     ratingContainerDiv.classList.add("ratingContainer");
     reviewDiv.classList.add("review");
-    externalDiv.classList.add("linky")
+    externalDiv.classList.add("linky");
 
-    ratingContainerDivG.classList.add("ratingContainer");
-    reviewDivG.classList.add("review");
+    // ratingContainerDivG.classList.add("ratingContainer");
+    // reviewDivG.classList.add("review");
 
     ratingContainerDivF.classList.add("ratingContainer");
     reviewDivF.classList.add("review");
@@ -94,11 +124,11 @@ window.addEventListener("load", (event) => {
     ratingContainerDiv.appendChild(reviewDiv);
     externalDiv.appendChild(a);
 
-    divContainer.appendChild(googleDiv);
-    divContainer.appendChild(ratingContainerDivG);
-    divContainer.appendChild(externalDivG);
-    ratingContainerDivG.appendChild(ratingDivG);
-    ratingContainerDivG.appendChild(reviewDivG);
+    // divContainer.appendChild(googleDiv);
+    // divContainer.appendChild(ratingContainerDivG);
+    // divContainer.appendChild(externalDivG);
+    // ratingContainerDivG.appendChild(ratingDivG);
+    // ratingContainerDivG.appendChild(reviewDivG);
 
     divContainer.appendChild(fourDiv);
     divContainer.appendChild(ratingContainerDivF);
@@ -115,13 +145,13 @@ window.addEventListener("load", (event) => {
     yelpImg.classList.add("yelpImage");
     yelpImg.src = chrome.runtime.getURL(`./yelp-logo.png`);
 
-    const googleImg = document.createElement("img");
-    googleImg.classList.add("googleImage");
-    googleImg.src = chrome.runtime.getURL(`./googleLogo.png`);
+    // const googleImg = document.createElement("img");
+    // googleImg.classList.add("googleImage");
+    // googleImg.src = chrome.runtime.getURL(`./googleLogo.png`);
 
     const fourImg = document.createElement("img");
     fourImg.classList.add("fourImage");
-    fourImg.src = chrome.runtime.getURL("./fourlogo.jpeg")
+    fourImg.src = chrome.runtime.getURL("./fourlogo.jpeg");
 
     const externalImg = document.createElement("img");
     externalImg.classList.add("externalImage");
@@ -131,36 +161,37 @@ window.addEventListener("load", (event) => {
     externalImgF.classList.add("externalImage");
     externalImgF.src = chrome.runtime.getURL("./external.png");
 
-
-    const ratingImgGoogle = document.createElement("img");
-    ratingImgGoogle.classList.add("ratingImage");
-    ratingImgGoogle.src = chrome.runtime.getURL(
-      `./small_${roundedRatingG}.png`
-    );
+    // const ratingImgGoogle = document.createElement("img");
+    // ratingImgGoogle.classList.add("ratingImage");
+    // ratingImgGoogle.src = chrome.runtime.getURL(
+    //   `./small_${roundedRatingG}.png`
+    // );
 
     const ratingImgFour = document.createElement("img");
     ratingImgFour.classList.add("ratingImage");
-    ratingImgFour.src = chrome.runtime.getURL(`./small_${roundedRatingF}.png`)
+    ratingImgFour.src = chrome.runtime.getURL(`./small_${roundedRatingF}.png`);
 
     //Variable assignment
     reviewDiv.innerHTML = `(${yelp.review_count} reviews)`;
     a.href = `${yelp.url}`;
 
-    reviewDivG.innerHTML = `(${google.user_ratings_total} reviews)`;
-    
+    // reviewDivG.innerHTML = `(${google.user_ratings_total} reviews)`;
+
     reviewDivF.innerHTML = `(${four.stats.total_ratings} reviews)`;
-    aF.href = `https://foursquare.com/v/${four.name}/${four.fsq_id}`
+    aF.href = `https://foursquare.com/v/${four.name}/${four.fsq_id}`;
     //final HTML construction
     ratingDiv.appendChild(ratingImg);
     yelpDiv.appendChild(yelpImg);
     a.appendChild(externalImg);
 
-    ratingDivG.appendChild(ratingImgGoogle);
-    googleDiv.appendChild(googleImg);
+    // ratingDivG.appendChild(ratingImgGoogle);
+    // googleDiv.appendChild(googleImg);
 
     ratingDivF.appendChild(ratingImgFour);
     fourDiv.appendChild(fourImg);
     aF.appendChild(externalImgF);
+    }
+
   });
 });
 

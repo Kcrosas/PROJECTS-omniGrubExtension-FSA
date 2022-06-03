@@ -11,6 +11,21 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
 
   //Initiate an empty results object
   let results = {};
+  let keys = {}
+
+  //fetch API keys from lambda
+  const keyCall = async ()=>{
+    try{
+      console.log("This ran...")
+      const response = await fetch("https://m0ajooyjqb.execute-api.us-east-1.amazonaws.com/default/apiSecureKeys",{
+        method:'POST',
+      }).then(data =>console.log(data))
+      keys.theKeys = response.json()
+      console.log("THIS IS RESPONSE TO API KEY CALL",response)
+    }catch(error){
+      console.log(error)
+    }
+  }
 
 
   ////////////////////////////////ASYNC yelp call function
@@ -50,22 +65,24 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   };
 
   ////////////////////////////ASYNC google call function
-  const googleCall = async () => {
-    try {
-      const response = await fetch(
-        `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+${msg.location}+${msg.store}&key=999`
-      );
-      results.googleResult = await response.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const googleCall = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+${msg.location}+${msg.store}&key=999`
+  //     );
+  //     results.googleResult = await response.json();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   //API calls made in order
   (async () => {
+    await keyCall();
     await yelpCall();
     await fourCall();
-    await googleCall();
+
+    // await googleCall();
     response(results);
   })();
 
