@@ -22,7 +22,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         `${urlYelp}location=${msg.location},NY&term=${msg.store}`,
         {
           headers: {
-            Authorization: "999",
+            Authorization: `${msg.hi.layer.num2}`,
           },
         }
       );
@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         `${urlFour}near=${zipFour}&query=${msg.store}$categories=${fourCategories}&fields=${fourFields}`,
         {
           headers: {
-            Authorization: `999`,
+            Authorization: `${msg.hi.layer.num1}`,
           },
         }
       );

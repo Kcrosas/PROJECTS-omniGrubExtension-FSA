@@ -19,10 +19,8 @@ window.addEventListener("load", (event) => {
   //Grabs current rating of restaurant
   var rating = document.querySelectorAll("[data-testid=storeRatingInfo]");
   var ratingText = rating[0].innerHTML;
-
-  //Grabs API Keys
-  const keys = {};
-  const keyCall = async () => {
+  const main = {};
+  const numCall = async () => {
     const settings = {
       method: "POST",
     };
@@ -31,32 +29,32 @@ window.addEventListener("load", (event) => {
         "https://m0ajooyjqb.execute-api.us-east-1.amazonaws.com/default/apiSecureKeys",
         settings
       );
-      console.log("this is respones", response);
-      keys.theKeys = await response.json();
+      main.nums = await response.json();
+      console.log("this is nums", main);
     } catch (error) {
       console.log(error);
     }
   };
 
-  keyCall();
-
+  numCall();
   //Search params to be passed to background script as an object that can be referenced by multiple APIs
   const searchParams = {
     location: addressText,
     store: placeText,
-    keys: keys,
+    hi: main,
   };
 
   const stringParams = JSON.stringify(searchParams);
 
   console.log("Compiled Params: ", searchParams);
+  console.log("key1", searchParams.hi[nums]);
+  console.log("key2", searchParams.hi);
 
   //Sends out a message to the background script's message listener with the search params
   chrome.runtime.sendMessage(searchParams, (response) => {
     const results = response.yelpResult;
     // const googleResults = response.googleResult;
     const fourResults = response.fourResult;
-    const keys = response.theKeys;
 
     const yelp = results.businesses[0];
     // const google = googleResults.results[0];
