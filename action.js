@@ -20,38 +20,23 @@ window.addEventListener("load", (event) => {
   var rating = document.querySelectorAll("[data-testid=storeRatingInfo]");
   var ratingText = rating[0].innerHTML;
   const main = {};
-  const numCall = async () => {
-    const settings = {
-      method: "POST",
-    };
-    try {
-      const response = await fetch(
-        "https://m0ajooyjqb.execute-api.us-east-1.amazonaws.com/default/apiSecureKeys",
-        settings
-      );
-      main.nums = await response.json();
-      console.log("this is nums", main);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  numCall();
   //Search params to be passed to background script as an object that can be referenced by multiple APIs
   const searchParams = {
     location: addressText,
     store: placeText,
-    hi: main,
+    //hi: main,
   };
 
   const stringParams = JSON.stringify(searchParams);
 
   console.log("Compiled Params: ", searchParams);
-  console.log("key1", searchParams.hi[nums]);
-  console.log("key2", searchParams.hi);
+  //console.log("key1", searchParams.hi[nums]);
+  //console.log("key2", searchParams.hi);
 
   //Sends out a message to the background script's message listener with the search params
   chrome.runtime.sendMessage(searchParams, (response) => {
+    console.log('This is the response from the background script', response)
     const results = response.yelpResult;
     // const googleResults = response.googleResult;
     const fourResults = response.fourResult;

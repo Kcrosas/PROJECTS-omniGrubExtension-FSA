@@ -14,6 +14,22 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   // let keys = {};
 
   //fetch API keys from lambda
+  const numCall = async () => {
+    const settings = {
+      method: "POST",
+    };
+    try {
+      const response = await fetch(
+        "https://m0ajooyjqb.execute-api.us-east-1.amazonaws.com/default/apiSecureKeys",
+        settings
+      );
+      results.keys = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
+
+  };
+
 
   ////////////////////////////////ASYNC yelp call function
   const yelpCall = async () => {
@@ -22,7 +38,8 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         `${urlYelp}location=${msg.location},NY&term=${msg.store}`,
         {
           headers: {
-            Authorization: `${msg.hi.layer.num2}`,
+            //Authorization: `${msg.hi.nums.num2}`,
+            Authorization: `${results.keys.num2}`
           },
         }
       );
@@ -40,7 +57,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         `${urlFour}near=${zipFour}&query=${msg.store}$categories=${fourCategories}&fields=${fourFields}`,
         {
           headers: {
-            Authorization: `${msg.hi.layer.num1}`,
+            Authorization: `${results.keys.num1}`,
           },
         }
       );
@@ -65,6 +82,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   //API calls made in order
   (async () => {
     // await keyCall();
+    await numCall(); 
     await yelpCall();
     await fourCall();
 
