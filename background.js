@@ -13,7 +13,6 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   let results = {};
   // let keys = {};
 
-  //fetch API keys from lambda
   const numCall = async () => {
     const settings = {
       method: "POST",
@@ -27,9 +26,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     } catch (error) {
       console.log(error);
     }
-
   };
-
 
   ////////////////////////////////ASYNC yelp call function
   const yelpCall = async () => {
@@ -39,7 +36,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         {
           headers: {
             //Authorization: `${msg.hi.nums.num2}`,
-            Authorization: `${results.keys.num2}`
+            Authorization: `${results.keys.num2}`,
           },
         }
       );
@@ -82,7 +79,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   //API calls made in order
   (async () => {
     // await keyCall();
-    await numCall(); 
+    await numCall();
     await yelpCall();
     await fourCall();
 

@@ -30,13 +30,13 @@ window.addEventListener("load", (event) => {
 
   const stringParams = JSON.stringify(searchParams);
 
-  console.log("Compiled Params: ", searchParams);
+  // console.log("Compiled Params: ", searchParams);
   //console.log("key1", searchParams.hi[nums]);
   //console.log("key2", searchParams.hi);
 
   //Sends out a message to the background script's message listener with the search params
   chrome.runtime.sendMessage(searchParams, (response) => {
-    console.log('This is the response from the background script', response)
+    // console.log('This is the response from the background script', response)
     const results = response.yelpResult;
     // const googleResults = response.googleResult;
     const fourResults = response.fourResult;
@@ -45,8 +45,8 @@ window.addEventListener("load", (event) => {
     // const google = googleResults.results[0];
     const four = fourResults.results[0];
 
-    console.log("Result: ", yelp);
-    console.log("THIS IS FOURSQUARE", fourResults);
+    // console.log("Result: ", yelp);
+    // console.log("THIS IS FOURSQUARE", fourResults);
     // console.log("Result: GOOGLE ", googleResults);
 
     let header = document.querySelector("header");

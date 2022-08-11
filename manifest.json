@@ -2,7 +2,7 @@
   "name": "OmniGrub",
   "version": "0.1",
   "description": "Takes all displayed search results and does an API call to multiple platforms to add reviews",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "icons": {
     "128": "icon.png"
   },
@@ -13,26 +13,30 @@
       "matches": ["https://*.doordash.com/store*"]
     }
   ],
-  "permissions": ["<all_urls>"],
+  "host_permissions": ["<all_urls>"],
   "background": {
-    "page": "background.html",
-    "persistent": false
+    "service_worker": "background.js"
   },
   "web_accessible_resources": [
-    "small_1_half@3x.png",
-    "small_2.5.png",
-    "yelp-logo.png",
-    "small_0.png",
-    "small_1.png",
-    "small_1.5.png",
-    "small_2.png",
-    "small_3.png",
-    "small_3.5.png",
-    "small_4.png",
-    "small_4.5.png",
-    "small_5.png",
-    "external.png",
-    "googleLogo.png",
-    "fourlogo.jpeg"
+    {
+      "resources": [
+        "small_1_half@3x.png",
+        "small_2.5.png",
+        "yelp-logo.png",
+        "small_0.png",
+        "small_1.png",
+        "small_1.5.png",
+        "small_2.png",
+        "small_3.png",
+        "small_3.5.png",
+        "small_4.png",
+        "small_4.5.png",
+        "small_5.png",
+        "external.png",
+        "googleLogo.png",
+        "fourlogo.jpeg"
+      ],
+      "matches": ["<all_urls>"]
+    }
   ]
 }
