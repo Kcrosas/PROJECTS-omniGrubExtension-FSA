@@ -1,7 +1,7 @@
 {
   "name": "OmniGrub",
   "version": "0.1",
-  "description": "Takes all displayed search results and does an API call to multiple platforms to add reviews",
+  "description": "OmniGrub is a free chrome extension that lets you compare reviews for a restaurant on DoorDash with Yelp and FourSquare.",
   "manifest_version": 3,
   "icons": {
     "128": "icon.png"
