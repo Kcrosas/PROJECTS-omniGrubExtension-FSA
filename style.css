@@ -1,54 +1,60 @@
-.container{
-    display:flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 25px;
-    margin-bottom:25px;
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
-.ratingContainer{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 25px;
+.ratingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25px;
 }
 
-.review{
-    font-family:Verdana;
-    font-weight: bold;
-    font-size:small;
+.review {
+  font-family: Verdana;
+  font-weight: bold;
+  font-size: small;
 }
 
-.yelpImage{
-    height: 45px;
-    width:45px;
-    margin-left: 25px;
+.yelpImage {
+  height: 45px;
+  width: 45px;
+  margin-left: 25px;
 }
 
-.ratingImage{
-    height:21px;
-    width:123px;
+.ratingImage {
+  height: 21px;
+  width: 123px;
 }
 
-.externalImage{
-    height:24px;
-    width: 24px;
-    margin-left: 8px;
+.externalImage {
+  height: 24px;
+  width: 24px;
+  margin-left: 8px;
 }
 
-.googleImage{
-    height: 45px;
-    width:45px;
-    margin-left:74px;
+.googleImage {
+  height: 45px;
+  width: 45px;
+  margin-left: 74px;
 }
 
-.fourImage{
-    height: 45px;
-    width:45px;
-    margin-left: 100px;
+.fourImage {
+  height: 45px;
+  width: 45px;
+  margin-left: 100px;
 }
 
-.linky{
-    margin-right: 20px;
+.fourImageSolo {
+  height: 45px;
+  width: 45px;
+  margin-left: 25px;
+}
+
+.linky {
+  margin-right: 20px;
 }
