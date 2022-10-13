@@ -1,7 +1,7 @@
 {
   "name": "OmniGrub",
-  "version": "0.3",
-  "description": "OmniGrub helps you compare DoorDash's reviews with Yelp and FourSquare's without leaving the DoorDash restaurant page.",
+  "version": "0.5",
+  "description": "OmniGrub helps you compare DoorDash's reviews with FourSquare's and Yelp's without leaving the DoorDash restaurant page.",
   "manifest_version": 3,
   "icons": {
     "128": "icon.png"

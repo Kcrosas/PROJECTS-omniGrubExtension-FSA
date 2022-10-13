@@ -15,31 +15,31 @@ window.addEventListener("load", (event) => {
   //var address = document.querySelectorAll(".gUHrYg");
   //var addressText = address[1].innerHTML;
 
-  //Grabs address from the title element 
-  var address = document.querySelectorAll(['title'])[0].innerHTML
+  //Grabs address from the title element
+  var address = document.querySelectorAll(["title"])[0].innerHTML;
   //address looks like ' TITLE | ADDRESS | MENU AND PRICES | DoorDash '
   //Use this to get the actual address
   const addressCleaner = (address) => {
-    let pointer = 0 
-    let pointer1 = 0 
+    let pointer = 0;
+    let pointer1 = 0;
     //Find the first |
-    while (address.charAt(pointer) !== '|'){
-        pointer++ 
+    while (address.charAt(pointer) !== "|") {
+      pointer++;
     }
     //Move it one space
-    pointer++ 
-    //Start the next | search one space ahead of the first pointer 
-    pointer1 = pointer+1
-    while (address.charAt(pointer1) !== '|'){
-        pointer1++
+    pointer++;
+    //Start the next | search one space ahead of the first pointer
+    pointer1 = pointer + 1;
+    while (address.charAt(pointer1) !== "|") {
+      pointer1++;
     }
-    //Move it back one space 
-    pointer1-- 
-    const clean = address.slice(pointer+1, pointer1)
-    return clean.split(' ').join(',')
-  }
-  var addressText = addressCleaner(address)
-  console.log('address ',addressText)
+    //Move it back one space
+    pointer1--;
+    const clean = address.slice(pointer + 1, pointer1);
+    return clean.split(" ").join(",");
+  };
+  var addressText = addressCleaner(address);
+  console.log("address ", addressText);
 
   //Grabs current rating of restaurant
   var rating = document.querySelectorAll("[data-testid=storeRatingInfo]");
@@ -145,6 +145,16 @@ window.addEventListener("load", (event) => {
 
       //HTML construction
       header.appendChild(divContainer);
+
+      //Add in FourSquare
+      divContainer.appendChild(fourDiv);
+      divContainer.appendChild(ratingContainerDivF);
+      divContainer.appendChild(externalDivF);
+      ratingContainerDivF.appendChild(ratingDivF);
+      ratingContainerDivF.appendChild(reviewDivF);
+      externalDivF.appendChild(aF);
+
+      //Add in Yelp
       divContainer.appendChild(yelpDiv);
       divContainer.appendChild(ratingContainerDiv);
       divContainer.appendChild(externalDiv);
@@ -158,12 +168,6 @@ window.addEventListener("load", (event) => {
       // ratingContainerDivG.appendChild(ratingDivG);
       // ratingContainerDivG.appendChild(reviewDivG);
 
-      divContainer.appendChild(fourDiv);
-      divContainer.appendChild(ratingContainerDivF);
-      divContainer.appendChild(externalDivF);
-      ratingContainerDivF.appendChild(ratingDivF);
-      ratingContainerDivF.appendChild(reviewDivF);
-      externalDivF.appendChild(aF);
       //Image construction
       const ratingImg = document.createElement("img");
       ratingImg.classList.add("ratingImage");
@@ -210,16 +214,16 @@ window.addEventListener("load", (event) => {
       reviewDivF.innerHTML = `(${four.stats.total_ratings} reviews)`;
       aF.href = `https://foursquare.com/v/${four.name}/${four.fsq_id}`;
       //final HTML construction
-      ratingDiv.appendChild(ratingImg);
-      yelpDiv.appendChild(yelpImg);
-      a.appendChild(externalImg);
+      ratingDivF.appendChild(ratingImgFour);
+      fourDiv.appendChild(fourImg);
+      aF.appendChild(externalImgF);
 
       // ratingDivG.appendChild(ratingImgGoogle);
       // googleDiv.appendChild(googleImg);
 
-      ratingDivF.appendChild(ratingImgFour);
-      fourDiv.appendChild(fourImg);
-      aF.appendChild(externalImgF);
+      ratingDiv.appendChild(ratingImg);
+      yelpDiv.appendChild(yelpImg);
+      a.appendChild(externalImg);
     } else if (!four || !four.rating) {
       //Only Foursquare has Results:
       //Yelp Variable Declaration

@@ -11,7 +11,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-left: 25px;
+  margin-left: 15px;
 }
 
 .review {
@@ -23,7 +23,7 @@
 .yelpImage {
   height: 45px;
   width: 45px;
-  margin-left: 25px;
+  margin-left: 80px;
 }
 
 .ratingImage {
@@ -46,7 +46,7 @@
 .fourImage {
   height: 45px;
   width: 45px;
-  margin-left: 100px;
+  margin-left: 15px;
 }
 
 .fourImageSolo {
