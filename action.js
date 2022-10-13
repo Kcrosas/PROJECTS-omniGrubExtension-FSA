@@ -7,14 +7,39 @@ window.addEventListener("load", (event) => {
   var place = document.querySelectorAll("h1")[0];
   var placeText = place.innerHTML;
 
-  // //creating the div thats going to be inserted
-
+  //creating the div thats going to be inserted
   //Example use of modifying an existing element
   //place.innerHTML = place.innerHTML + " DoorDash, hire us!";
 
   //Grabs address of user from top nav bar
-  var address = document.querySelectorAll(".gUHrYg");
-  var addressText = address[1].innerHTML;
+  //var address = document.querySelectorAll(".gUHrYg");
+  //var addressText = address[1].innerHTML;
+
+  //Grabs address from the title element 
+  var address = document.querySelectorAll(['title'])[0].innerHTML
+  //address looks like ' TITLE | ADDRESS | MENU AND PRICES | DoorDash '
+  //Use this to get the actual address
+  const addressCleaner = (address) => {
+    let pointer = 0 
+    let pointer1 = 0 
+    //Find the first |
+    while (address.charAt(pointer) !== '|'){
+        pointer++ 
+    }
+    //Move it one space
+    pointer++ 
+    //Start the next | search one space ahead of the first pointer 
+    pointer1 = pointer+1
+    while (address.charAt(pointer1) !== '|'){
+        pointer1++
+    }
+    //Move it back one space 
+    pointer1-- 
+    const clean = address.slice(pointer+1, pointer1)
+    return clean.split(' ').join(',')
+  }
+  var addressText = addressCleaner(address)
+  console.log('address ',addressText)
 
   //Grabs current rating of restaurant
   var rating = document.querySelectorAll("[data-testid=storeRatingInfo]");

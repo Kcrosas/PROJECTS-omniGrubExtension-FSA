@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   const yelpCall = async () => {
     try {
       const response = await fetch(
-        `${urlYelp}location=${msg.location},NY&term=${msg.store}`,
+        `${urlYelp}location=${msg.location}&term=${msg.store}`,
         {
           headers: {
             //Authorization: `${msg.hi.nums.num2}`,
