@@ -50,8 +50,10 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   const fourCall = async () => {
     try {
       let zipFour = results.yelpResult.businesses[0].location.zip_code;
+      console.log(`${urlFour}near=${zipFour}&query=${msg.store}&categories=${fourCategories}&fields=${fourFields}`)
+      //ll=${msg.geo.latitude},${msg.geo.longitude}
       const response = await fetch(
-        `${urlFour}near=${zipFour}&query=${msg.store}$categories=${fourCategories}&fields=${fourFields}`,
+        `${urlFour}ll=${msg.geo.latitude},${msg.geo.longitude}&query=${msg.store}&fields=${fourFields}&sort=distance`,
         {
           headers: {
             Authorization: `${results.keys.num1}`,
